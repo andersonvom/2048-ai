@@ -1,5 +1,5 @@
-function Runner(num_matches, strategy, game_manager) {
-  this.num_matches = num_matches;
+function Runner(strategy, game_manager) {
+  this.num_matches = null;
   this.strategy = strategy;
   this.game_manager = game_manager;
   this.play_delay = 100;

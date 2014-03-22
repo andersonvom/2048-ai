@@ -3,5 +3,5 @@ var game_manager = null;
 var runner = null;
 window.requestAnimationFrame(function () {
   game_manager = new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager);
-  runner = new Runner(1, random_strategy, game_manager);
+  runner = new Runner(random_strategy, game_manager);
 });
