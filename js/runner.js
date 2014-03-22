@@ -8,14 +8,10 @@ function Runner(num_matches, strategy, game_manager) {
 }
 
 Runner.prototype.start = function() {
-  var self = this;
-
-  if (this.num_matches > 0) {
-    console.log("Starting Match #" + this.num_matches);
-    this.game_manager.restart();
-    this.play(function() { self.end_game(); });
+  if (this.num_matches == null) {
+    this.play_once();
   } else {
-    console.log("No more matches! The end.");
+    this.play_all();
   }
 }
 
@@ -42,6 +38,25 @@ Runner.prototype.run_strategy = function() {
 
   return result.direction;
 }
+
+Runner.prototype.play_once = function() {
+  var self = this;
+  console.log("Playing single match");
+  this.game_manager.restart();
+  this.play(function() { self.end_game(); });
+};
+
+Runner.prototype.play_all = function() {
+  var self = this;
+
+  if (this.num_matches && this.num_matches > 0) {
+    console.log("Starting Match #" + this.num_matches);
+    this.game_manager.restart();
+    this.play(function() { self.end_game(); });
+  } else {
+    console.log("No more matches! The end.");
+  }
+};
 
 Runner.prototype.play = function(end_game_callback) {
   var self = this;
