@@ -3,6 +3,11 @@ var setup_strategies = function(runner) {
   var elem = document.querySelector(".link_random");
   elem.addEventListener("click", random);
   elem.addEventListener(this.eventTouchend, random);
+
+  var max_sq_sum = function() {runner.strategy=max_sq_sum_strategy; runner.start()};
+  var elem = document.querySelector(".link_max_sq_sum");
+  elem.addEventListener("click", max_sq_sum);
+  elem.addEventListener(this.eventTouchend, max_sq_sum);
 }
 
 var copy_cells = function(cells) {
@@ -50,4 +55,32 @@ var random_strategy = function() {
   var result = { direction: 0 };
   result.direction = Math.floor((Math.random() * 100) % 4);
   return result;
+}
+
+var square_sum_cells = function(cells) {
+  var grid_size = cells.length;
+  var total = 0;
+  for (var i=0 ; i<grid_size ; i++) {
+    for (var j=0 ; j<grid_size ; j++) {
+      var cell = cells[i][j];
+      if (cell) {
+        total += cell.value * cell.value;
+      }
+    }
+  }
+  return total;
+}
+
+var max_sq_sum_strategy = function(game_manager) {
+  var max = { direction: 0, value: 0 };
+
+  each_move(game_manager, function(game_manager, direction) {
+    var value = square_sum_cells(game_manager.grid.cells);
+    if (value > max.value) {
+      max.value = value;
+      max.direction = direction;
+    }
+  });
+
+  return max;
 }
