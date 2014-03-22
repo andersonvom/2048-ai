@@ -51,8 +51,7 @@ Runner.prototype.play_all = function() {
 
   if (this.num_matches && this.num_matches > 0) {
     console.log("Starting Match #" + this.num_matches);
-    this.game_manager.restart();
-    this.play(function() { self.end_game(); });
+    this.play(function() { self.restart(); });
   } else {
     console.log("No more matches! The end.");
   }
@@ -65,6 +64,7 @@ Runner.prototype.play = function(end_game_callback) {
   self.game_manager.move(direction);
 
   if (self.game_manager.isGameTerminated()) {
+    self.show_score();
     if (end_game_callback)
       setTimeout(end_game_callback, self.new_game_delay);
   } else {
@@ -72,8 +72,12 @@ Runner.prototype.play = function(end_game_callback) {
   }
 }
 
-Runner.prototype.end_game = function() {
+Runner.prototype.show_score = function() {
   console.log("Final score: " + this.game_manager.score);
+}
+
+Runner.prototype.restart = function() {
   this.num_matches -= 1;
+  this.game_manager.restart();
   this.start();
 }
