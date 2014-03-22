@@ -8,6 +8,11 @@ var setup_strategies = function(runner) {
   var elem = document.querySelector(".link_max_sq_sum");
   elem.addEventListener("click", max_sq_sum);
   elem.addEventListener(this.eventTouchend, max_sq_sum);
+
+  var max_sq_sum_two = function() {runner.strategy=max_sq_sum_two_ahead_strategy; runner.start()};
+  var elem = document.querySelector(".link_max_sq_sum_two");
+  elem.addEventListener("click", max_sq_sum_two);
+  elem.addEventListener(this.eventTouchend, max_sq_sum_two);
 }
 
 var copy_cells = function(cells) {
@@ -78,6 +83,28 @@ var max_sq_sum_strategy = function(game_manager) {
     var value = square_sum_cells(game_manager.grid.cells);
     if (value > max.value) {
       max.value = value;
+      max.direction = direction;
+    }
+  });
+
+  return max;
+}
+
+var max_sq_sum_two_ahead_strategy = function(game_manager) {
+  var max = { direction: 0, value: 0 };
+
+  each_move(game_manager, function(game_manager, direction) {
+    var total;
+    if (!game_manager.isGameTerminated()) {
+      var result = max_sq_sum_strategy(game_manager);
+      total = result.value;
+    } else {
+      total = square_sum_cells(game_manager.grid.cells);
+      game_manager.over = false;
+      game_manager.won = false;
+    }
+    if (total > max.value) {
+      max.value = total;
       max.direction = direction;
     }
   });
