@@ -40,9 +40,7 @@ Runner.prototype.run_strategy = function() {
 }
 
 Runner.prototype.play_once = function() {
-  var self = this;
   console.log("Playing single match");
-  this.game_manager.restart();
   this.play();
 };
 
