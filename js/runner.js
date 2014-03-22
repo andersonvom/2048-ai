@@ -35,4 +35,7 @@ Runner.prototype.play = function() {
 }
 
 Runner.prototype.end_game = function() {
+  console.log("Final score: " + this.game_manager.score);
+  this.num_matches -= 1;
+  this.start();
 }
