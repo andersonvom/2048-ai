@@ -17,7 +17,17 @@ Runner.prototype.start = function() {
 }
 
 Runner.prototype.run_strategy = function() {
+  var original_actuate = this.game_manager.actuate_backup;
+  this.game_manager.actuate = function() {};
+
+  var prev_score = this.game_manager.score;
   var result = this.strategy(this.game_manager);
+
+  this.game_manager.actuate = original_actuate;
+  this.game_manager.over = false;
+  this.game_manager.won = false;
+  this.game_manager.score = prev_score;
+
   return result.direction;
 }
 
