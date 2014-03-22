@@ -43,7 +43,7 @@ Runner.prototype.play_once = function() {
   var self = this;
   console.log("Playing single match");
   this.game_manager.restart();
-  this.play(function() { self.end_game(); });
+  this.play();
 };
 
 Runner.prototype.play_all = function() {
