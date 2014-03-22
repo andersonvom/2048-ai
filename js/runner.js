@@ -16,5 +16,23 @@ Runner.prototype.start = function() {
   }
 }
 
+Runner.prototype.run_strategy = function() {
+  var result = this.strategy(this.game_manager);
+  return result.direction;
+}
+
 Runner.prototype.play = function() {
+  var self = this;
+
+  var direction = self.run_strategy();
+  self.game_manager.move(direction);
+
+  if (self.game_manager.isGameTerminated()) {
+    setTimeout(function() { self.end_game(); }, self.new_game_delay);
+  } else {
+    setTimeout(function() { self.play(); }, self.play_delay);
+  }
+}
+
+Runner.prototype.end_game = function() {
 }
