@@ -8,10 +8,12 @@ function Runner(num_matches, strategy, game_manager) {
 }
 
 Runner.prototype.start = function() {
+  var self = this;
+
   if (this.num_matches > 0) {
     console.log("Starting Match #" + this.num_matches);
     this.game_manager.restart();
-    this.play();
+    this.play(function() { self.end_game(); });
   } else {
     console.log("No more matches! The end.");
   }
@@ -41,16 +43,17 @@ Runner.prototype.run_strategy = function() {
   return result.direction;
 }
 
-Runner.prototype.play = function() {
+Runner.prototype.play = function(end_game_callback) {
   var self = this;
 
   var direction = self.run_strategy();
   self.game_manager.move(direction);
 
   if (self.game_manager.isGameTerminated()) {
-    setTimeout(function() { self.end_game(); }, self.new_game_delay);
+    if (end_game_callback)
+      setTimeout(end_game_callback, self.new_game_delay);
   } else {
-    setTimeout(function() { self.play(); }, self.play_delay);
+    setTimeout(function() { self.play(end_game_callback); }, self.play_delay);
   }
 }
 
