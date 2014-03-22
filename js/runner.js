@@ -4,6 +4,7 @@ function Runner(num_matches, strategy, game_manager) {
   this.game_manager = game_manager;
   this.play_delay = 100;
   this.new_game_delay = 500;
+  this.original_info = {};
 }
 
 Runner.prototype.start = function() {
@@ -16,17 +17,26 @@ Runner.prototype.start = function() {
   }
 }
 
+Runner.prototype.backup = function(type, attrs) {
+  for (var i=0 ; i<attrs.length ; i++) {
+    var attr_name = attrs[i];
+    var attr = this.game_manager[attr_name];
+    if (type == 'save') {
+      this.original_info[attr_name] = attr;
+      if (typeof attr == 'function')
+        this.game_manager[attr_name] = function() {};
+    } else {
+      this.game_manager[attr_name] = this.original_info[attr_name];
+    }
+  }
+}
+
 Runner.prototype.run_strategy = function() {
-  var original_actuate = this.game_manager.actuate_backup;
-  this.game_manager.actuate = function() {};
+  var info = ['actuate', 'over', 'won', 'score'];
 
-  var prev_score = this.game_manager.score;
+  this.backup('save', info);
   var result = this.strategy(this.game_manager);
-
-  this.game_manager.actuate = original_actuate;
-  this.game_manager.over = false;
-  this.game_manager.won = false;
-  this.game_manager.score = prev_score;
+  this.backup('restore', info);
 
   return result.direction;
 }
