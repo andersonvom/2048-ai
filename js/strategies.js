@@ -97,6 +97,7 @@ var max_sq_sum_strategy = function(game_manager) {
 
 var max_score_strategy = function(game_manager) {
   var max = { direction: 0, value: 0 };
+  var equal_scores = 0;
 
   each_move(game_manager, function(game_manager, direction) {
     var current_score = game_manager.score;
@@ -104,7 +105,15 @@ var max_score_strategy = function(game_manager) {
       max.value = current_score;
       max.direction = direction;
     }
+    if (current_score == max.value) {
+      equal_scores++;
+    }
   });
+
+  // If the score doesn't change in this move, pick a random one
+  if (equal_scores == 4) {
+    max.direction = Math.floor((Math.random() * 100) % 4);
+  }
 
   return max;
 }
