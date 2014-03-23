@@ -8,6 +8,7 @@ function Runner(strategy, game_manager) {
 }
 
 Runner.prototype.start = function() {
+  this.game_manager.restart();
   if (this.num_matches == null) {
     this.play_once();
   } else {
@@ -76,6 +77,5 @@ Runner.prototype.show_score = function() {
 
 Runner.prototype.restart = function() {
   this.num_matches -= 1;
-  this.game_manager.restart();
   this.start();
 }
