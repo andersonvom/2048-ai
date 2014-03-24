@@ -26,7 +26,7 @@ var setup_strategies = function(runner) {
       runner.start();
     }
   };
-  var elem = document.querySelector(".link_custom");
+  var elem = document.querySelector(".run-button");
   elem.addEventListener("click", custom);
   elem.addEventListener(this.eventTouchend, custom);
 }
