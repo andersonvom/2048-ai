@@ -17,7 +17,8 @@
 <body>
   <div class="container">
     <div class="heading">
-      <h1 class="title">2048AI</h1>
+      <h1 class="title">2048 - AI</h1>
+      <br>
       <div class="scores-container">
         <div class="score-container">0</div>
         <div class="best-container">0</div>
@@ -25,8 +26,9 @@
     </div>
 
     <div class="above-game">
-      <p class="game-intro">Try your hand at creating a good AI strategy to play <strong>2048</strong>!</p>
-      <a class="restart-button">New Game</a>
+      <p class="game-intro">
+        Try your hand at creating a good AI strategy to play <strong>2048</strong>!
+      </p>
     </div>
 
     <div class="game-container">
@@ -70,22 +72,7 @@
       </div>
     </div>
 
-    <p class="game-explanation">
-      <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
-    </p>
-    <hr>
-
-    <p>
-      Sample strategies:
-    </p>
-    <ul>
-      <li><a class="link_random">Random</a></li>
-      <li><a class="link_max_score">Max Score</a></li>
-      <li><a class="link_max_sq_sum">Max Square Sum</a></li>
-      <li><a class="link_max_sq_sum_two">Max Square Sum (two ahead)</a></li>
-    </ul>
-    <hr>
-
+    <p>&nbsp;</p>
     <div id="editor">var count = -1;
 
 // Edit the code of the 'custom_strategy' function
@@ -97,7 +84,31 @@ function custom_strategy(game_manager) {
 }
     </div>
     <a class="run-button">Run</a>
+    <a class="restart-button">New Game</a>
     <br>
+    <hr>
+
+    <p class="game-explanation">
+      <strong class="important">How to play:
+      </strong> Use your <strong>arrow keys</strong> to move the tiles. When
+      two tiles with the same number touch, they <strong>merge into one!</strong>
+
+      <strong>Or better yet!</strong> Use the editor below the game board to
+      write your super cool heuristics and make the computer play the game for
+      you, instead of wasting hours away trying to add up silly tiles! :P
+    </p>
+    <hr>
+
+    <p>
+    Sample strategies: (check out <a href="https://github.com/andersonvom/2048-ai/blob/master/js/strategies.js">this file</a>
+    to see their code)
+    </p>
+    <ul>
+      <li><a class="link_random">Random</a></li>
+      <li><a class="link_max_score">Max Score</a></li>
+      <li><a class="link_max_sq_sum">Max Square Sum</a></li>
+      <li><a class="link_max_sq_sum_two">Max Square Sum (two ahead)</a></li>
+    </ul>
     <hr>
 
     <p>
