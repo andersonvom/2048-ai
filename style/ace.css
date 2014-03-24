@@ -4,6 +4,7 @@
   height: 400px;
 }
 .run-button {
+  margin-left: 5px;
   display: inline-block;
   background: #8f7a66;
   border-radius: 3px;
