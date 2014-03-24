@@ -1,0 +1,36 @@
+html, body {
+  background: #111;
+  color: rgba(200, 150, 100, 1);
+  margin: 0 0;
+}
+
+#editor {
+  position: relative;
+  width: 500px;
+  height: 400px;
+}
+.run-button {
+  margin-left: 5px;
+  display: inline-block;
+  background: #8f7a66;
+  border-radius: 3px;
+  padding: 0 20px;
+  text-decoration: none;
+  color: #f9f6f2;
+  height: 40px;
+  line-height: 42px;
+  display: block;
+  text-align: center;
+  float: right; }
+
+@media screen and (max-width: 520px) {
+  #editor {
+    width: 280px;
+  }
+  .run-button {
+    width: 42%;
+    padding: 0;
+    display: block;
+    box-sizing: border-box;
+    margin-top: 2px; }
+}

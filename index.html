@@ -5,6 +5,7 @@
   <title>2048</title>
 
   <link href="style/main.css" rel="stylesheet" type="text/css">
+  <link href="style/ace.css" rel="stylesheet" type="text/css">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -22,7 +23,8 @@
 <body>
   <div class="container">
     <div class="heading">
-      <h1 class="title">2048</h1>
+      <h1 class="title">2048 - AI</h1>
+      <br>
       <div class="scores-container">
         <div class="score-container">0</div>
         <div class="best-container">0</div>
@@ -30,8 +32,9 @@
     </div>
 
     <div class="above-game">
-      <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
-      <a class="restart-button">New Game</a>
+      <p class="game-intro">
+        Try your hand at creating a good AI strategy to play <strong>2048</strong>!
+      </p>
     </div>
 
     <div class="game-container">
@@ -76,16 +79,47 @@
       </div>
     </div>
 
+    <p>&nbsp;</p>
+    <div id="editor">var count = -1;
+
+// Edit the code of the 'custom_strategy' function
+// You must return an object with a direction property
+// that has values between 0 and 3.
+function custom_strategy(game_manager) {
+  count += 1;
+  return { direction: (count % 4) };
+}
+    </div>
+    <a class="run-button">Run</a>
+    <a class="restart-button">New Game</a>
+    <br>
+    <hr>
+
     <p class="game-explanation">
-      <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
+      <strong class="important">How to play:
+      </strong> Use your <strong>arrow keys</strong> to move the tiles. When
+      two tiles with the same number touch, they <strong>merge into one!</strong>
+
+      <strong>Or better yet!</strong> Use the editor below the game board to
+      write your super cool heuristics and make the computer play the game for
+      you, instead of wasting hours away trying to add up silly tiles! :P
     </p>
     <hr>
+
     <p>
-    <strong class="important">Note:</strong> This site is the official version of 2048. You can play it on your phone via <a href="http://git.io/2048">http://git.io/2048.</a> All other apps or sites are derivatives or fakes, and should be used with caution.
+    Sample strategies: (check out <a href="https://github.com/andersonvom/2048-ai/blob/master/js/strategies.js">this file</a>
+    to see their code)
     </p>
+    <ul>
+      <li><a class="link_random">Random</a></li>
+      <li><a class="link_max_score">Max Score</a></li>
+      <li><a class="link_max_sq_sum">Max Square Sum</a></li>
+      <li><a class="link_max_sq_sum_two">Max Square Sum (two ahead)</a></li>
+    </ul>
     <hr>
+
     <p>
-    Created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a> Based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> and conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer.</a>
+    Original 2048 game was created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a>
     </p>
     <div class="sharing">
       <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out 2048, a game where you join numbers to score high! #2048game" data-via="gabrielecirulli" data-url="http://git.io/2048" data-counturl="http://gabrielecirulli.github.io/2048/">Tweet</a>
@@ -117,16 +151,28 @@
   <script src="js/tile.js"></script>
   <script src="js/local_storage_manager.js"></script>
   <script src="js/game_manager.js"></script>
+  <script src="js/strategies.js"></script>
+  <script src="js/runner.js"></script>
   <script src="js/application.js"></script>
 
+  <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" type="text/javascript" charset="utf-8"></script>
   <script>
-    (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,"script","//www.google-analytics.com/analytics.js","ga");
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");
+  </script>
 
-    ga("create", "UA-42620757-2", "gabrielecirulli.github.io");
-    ga("send", "pageview");
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31347952-2']);
+    _gaq.push(['_gat._anonymizeIp']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
   </script>
 </body>
 </html>
