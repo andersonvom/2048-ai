@@ -18,6 +18,17 @@ var setup_strategies = function(runner) {
   var elem = document.querySelector(".link_max_sq_sum_two");
   elem.addEventListener("click", max_sq_sum_two);
   elem.addEventListener(this.eventTouchend, max_sq_sum_two);
+
+  var custom = function() {
+    eval(editor.getValue());
+    if (validate_custom_strategy(runner, custom_strategy)) {
+      runner.strategy=custom_strategy;
+      runner.start();
+    }
+  };
+  var elem = document.querySelector(".link_custom");
+  elem.addEventListener("click", custom);
+  elem.addEventListener(this.eventTouchend, custom);
 }
 
 var copy_cells = function(cells) {
@@ -138,4 +149,33 @@ var max_sq_sum_two_ahead_strategy = function(game_manager) {
   });
 
   return max;
+}
+
+var validate_custom_strategy = function(runner, custom_strategy) {
+  var InvalidException = function(message) {
+    this.message = message;
+    this.name = "InvalidException";
+  }
+
+  try {
+    if (typeof custom_strategy != "function") {
+      msg = "You must define a function called 'custom_strategy'.";
+      throw new InvalidException(msg);
+    }
+
+    runner.strategy = custom_strategy;
+    direction = runner.run_strategy();
+    if ((direction < 0) || (direction > 3)) {
+      msg = "'custom_strategy' must return an object { direction: [0-3] }";
+      throw new InvalidException(msg);
+    }
+
+  } catch (exc) {
+    console.error(exc.message);
+    console.error(exc);
+    alert("Could not run 'custom_strategy'. See console for traceback.")
+    return false;
+  }
+
+  return true;
 }
